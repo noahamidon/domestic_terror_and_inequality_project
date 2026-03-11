@@ -1,0 +1,299 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Oswald', sans-serif;
+    background-color: #272932;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+.container {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1400px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.map-section {
+    flex: 2;
+    background-color: #1e1f26;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.viz-section {
+    flex: 1;
+    background-color: #1e1f26;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ── Citations ── */
+.citations {
+    margin-top: 10px;
+    padding: 0 4px;
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: #777;
+    text-align: right;
+    line-height: 1.5;
+    flex-shrink: 0;
+}
+
+.citations em {
+    font-style: italic;
+}
+
+.citations a {
+    color: #999;
+    text-decoration: none;
+    border-bottom: 1px dotted #666;
+    transition: color 0.2s;
+}
+
+.citations a:hover {
+    color: #ccc;
+}
+
+/* ── Region story popup ── */
+.region-popup {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 280px;
+    max-height: calc(100% - 40px);
+    background-color: rgba(30, 31, 38, 0.95);
+    border: 2px solid #888;
+    border-radius: 10px;
+    padding: 18px 20px 16px;
+    z-index: 500;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.3s ease;
+    visibility: hidden;
+    overflow-y: auto;
+}
+
+.region-popup.visible {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.region-popup-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 4px;
+    transition: color 0.2s;
+    font-family: 'Oswald', sans-serif;
+}
+
+.region-popup-close:hover {
+    color: #fff;
+}
+
+.region-popup-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #555;
+    padding-right: 24px;
+}
+
+.region-popup-body {
+    font-size: 0.82rem;
+    font-weight: 300;
+    line-height: 1.55;
+    color: #ccc;
+}
+
+/* ── Tooltips ── */
+.tooltip {
+    position: absolute;
+    background-color: rgba(39, 41, 50, 0.95);
+    border: 2px solid #ff6b6b;
+    border-radius: 6px;
+    padding: 10px 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1000;
+    min-width: 180px;
+    max-width: 220px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    font-size: 0.85rem;
+}
+
+.tooltip h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+    color: #ff6b6b;
+    border-bottom: 1px solid #ff6b6b;
+    padding-bottom: 4px;
+}
+
+.tooltip p {
+    font-size: 0.8rem;
+    margin: 3px 0;
+    font-weight: 300;
+}
+
+.tooltip .attack-list {
+    font-size: 0.75rem;
+    font-weight: 300;
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+.tooltip .attack-list span {
+    display: block;
+}
+
+/* Scatter tooltip for region lines */
+.scatter-tooltip {
+    position: absolute;
+    background-color: rgba(39, 41, 50, 0.95);
+    border: 2px solid #888;
+    border-radius: 6px;
+    padding: 6px 10px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 1000;
+    font-size: 0.8rem;
+    font-family: 'Oswald', sans-serif;
+    color: #ffffff;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.country {
+    stroke: #272932;
+    stroke-width: 0.5px;
+    transition: opacity 0.2s;
+}
+
+.country:hover {
+    opacity: 0.8;
+    stroke: #ffffff;
+    stroke-width: 1.5px;
+}
+
+#legend {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#legend h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.legend-scale {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.legend-gradient {
+    width: 200px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.legend-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    font-size: 0.85rem;
+    font-weight: 300;
+}
+
+#stats {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    text-align: right;
+}
+
+#stats h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+#stats p {
+    font-size: 1rem;
+    font-weight: 300;
+    margin: 5px 0;
+}
+
+.stat-number {
+    color: #ff6b6b;
+    font-weight: 600;
+}
+
+#map-container {
+    width: 100%;
+    height: 100%;
+}
+
+#scatter-container {
+    width: 100%;
+    height: 100%;
+}
+
+.toggle-btn:hover .toggle-rect {
+    opacity: 0.85;
+}
+
+.toggle-btn {
+    transition: opacity 0.2s;
+}
+
+.region-popup-citation {
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: #666;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #444;
+  line-height: 1.45;
+  font-style: italic;
+}

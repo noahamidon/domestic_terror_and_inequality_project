@@ -1,0 +1,160 @@
+country_txt,total_events,total_deaths,attack_1_type,attack_2_type,attack_3_type,attack_4_type,attack_5_type,attack_1_events,attack_2_events,attack_3_events,attack_4_events,attack_5_events
+Afghanistan,12598,57951,Bombing/Explosion,Armed Assault,Unknown,Hostage Taking (Kidnapping),Assassination,4133,3061,3012,1195,771
+Algeria,1186,3543,Bombing/Explosion,Armed Assault,Assassination,Unknown,Hostage Taking (Kidnapping),504,381,169,48,47
+Andorra,1,0,Armed Assault,NA,NA,NA,NA,1,NA,NA,NA,NA
+Angola,432,2877,Bombing/Explosion,Armed Assault,Unknown,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,236,109,38,26,16
+Argentina,282,306,Bombing/Explosion,Assassination,Armed Assault,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,127,59,43,36,12
+Armenia,4,16,Armed Assault,Hijacking,Hostage Taking (Barricade Incident),NA,NA,2,1,1,NA,NA
+Australia,2,0,Facility/Infrastructure Attack,NA,NA,NA,NA,2,NA,NA,NA,NA
+Austria,9,9,Bombing/Explosion,Armed Assault,Assassination,Facility/Infrastructure Attack,Hostage Taking (Barricade Incident),3,2,1,1,1
+Azerbaijan,11,67,Armed Assault,Bombing/Explosion,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),Unknown,6,2,1,1,1
+Bahrain,26,11,Bombing/Explosion,Armed Assault,Unknown,NA,NA,23,2,1,NA,NA
+Bangladesh,579,834,Bombing/Explosion,Armed Assault,Facility/Infrastructure Attack,Assassination,Hostage Taking (Kidnapping),217,157,88,73,17
+Belgium,36,12,Bombing/Explosion,Facility/Infrastructure Attack,Armed Assault,Hostage Taking (Kidnapping),NA,27,6,2,1,NA
+Bhutan,2,5,Bombing/Explosion,NA,NA,NA,NA,2,NA,NA,NA,NA
+Bolivia,62,9,Bombing/Explosion,Assassination,Armed Assault,Hostage Taking (Barricade Incident),Hostage Taking (Kidnapping),40,7,6,4,4
+Bosnia-Herzegovina,5,0,Bombing/Explosion,Armed Assault,Hostage Taking (Barricade Incident),NA,NA,3,1,1,NA,NA
+Brazil,36,9,Bombing/Explosion,Hostage Taking (Kidnapping),Unknown,Facility/Infrastructure Attack,Hostage Taking (Barricade Incident),16,9,6,3,1
+Burkina Faso,44,170,Armed Assault,Bombing/Explosion,Assassination,Hostage Taking (Kidnapping),Unknown,25,7,3,3,3
+Burundi,209,1860,Armed Assault,Facility/Infrastructure Attack,Bombing/Explosion,Unknown,Hostage Taking (Kidnapping),76,41,40,37,10
+Cambodia,175,413,Bombing/Explosion,Armed Assault,Unknown,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,83,48,21,14,4
+Cameroon,49,53,Hostage Taking (Kidnapping),Armed Assault,Bombing/Explosion,Unknown,Facility/Infrastructure Attack,19,16,9,3,2
+Canada,14,1,Facility/Infrastructure Attack,Bombing/Explosion,Hostage Taking (Kidnapping),Unarmed Assault,Armed Assault,7,2,2,2,1
+Central African Republic,191,1900,Armed Assault,Hostage Taking (Kidnapping),Unknown,Bombing/Explosion,Assassination,108,35,28,7,5
+Chad,26,262,Unknown,Armed Assault,Hostage Taking (Kidnapping),Bombing/Explosion,Facility/Infrastructure Attack,9,7,7,1,1
+Chile,1403,169,Bombing/Explosion,Armed Assault,Facility/Infrastructure Attack,Assassination,Hostage Taking (Barricade Incident),958,186,138,52,32
+China,96,520,Bombing/Explosion,Armed Assault,Assassination,Hijacking,Hostage Taking (Kidnapping),69,19,2,2,2
+Colombia,5911,11047,Bombing/Explosion,Armed Assault,Hostage Taking (Kidnapping),Assassination,Unknown,2207,1685,904,449,290
+Comoros,1,0,Armed Assault,NA,NA,NA,NA,1,NA,NA,NA,NA
+Costa Rica,11,4,Bombing/Explosion,Armed Assault,Hostage Taking (Barricade Incident),Unknown,NA,6,3,1,1,NA
+Croatia,1,41,Armed Assault,NA,NA,NA,NA,1,NA,NA,NA,NA
+Cuba,2,1,Armed Assault,Hijacking,NA,NA,NA,1,1,NA,NA,NA
+Cyprus,8,1,Assassination,Bombing/Explosion,NA,NA,NA,6,2,NA,NA,NA
+Czech Republic,3,0,Facility/Infrastructure Attack,NA,NA,NA,NA,3,NA,NA,NA,NA
+Democratic Republic of the Congo,992,4156,Armed Assault,Hostage Taking (Kidnapping),Unknown,Facility/Infrastructure Attack,Bombing/Explosion,405,259,195,93,14
+Denmark,1,0,Unknown,NA,NA,NA,NA,1,NA,NA,NA,NA
+Djibouti,6,236,Armed Assault,Hostage Taking (Kidnapping),NA,NA,NA,5,1,NA,NA,NA
+Dominican Republic,29,12,Bombing/Explosion,Armed Assault,Assassination,Hostage Taking (Kidnapping),Hostage Taking (Barricade Incident),21,3,2,2,1
+East Germany (GDR),5,0,Facility/Infrastructure Attack,Bombing/Explosion,NA,NA,NA,4,1,NA,NA,NA
+Ecuador,58,15,Bombing/Explosion,Armed Assault,Hostage Taking (Kidnapping),Hostage Taking (Barricade Incident),Unknown,16,13,10,8,8
+Egypt,987,2888,Bombing/Explosion,Armed Assault,Assassination,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,383,307,163,72,27
+El Salvador,3724,8396,Armed Assault,Bombing/Explosion,Assassination,Facility/Infrastructure Attack,Hostage Taking (Barricade Incident),1683,1500,193,120,104
+Eritrea,6,38,Bombing/Explosion,Unknown,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),NA,2,2,1,1,NA
+Estonia,2,0,Armed Assault,Bombing/Explosion,NA,NA,NA,1,1,NA,NA,NA
+Ethiopia,111,2166,Hostage Taking (Kidnapping),Armed Assault,Bombing/Explosion,Facility/Infrastructure Attack,Unknown,32,30,26,8,7
+Falkland Islands,1,0,Bombing/Explosion,NA,NA,NA,NA,1,NA,NA,NA,NA
+Finland,1,0,Facility/Infrastructure Attack,NA,NA,NA,NA,1,NA,NA,NA,NA
+France,1124,82,Bombing/Explosion,Facility/Infrastructure Attack,Assassination,Armed Assault,Hostage Taking (Kidnapping),951,61,50,32,9
+Gabon,2,6,Armed Assault,Hostage Taking (Barricade Incident),NA,NA,NA,1,1,NA,NA,NA
+Georgia,43,124,Armed Assault,Bombing/Explosion,Hostage Taking (Kidnapping),Assassination,Unknown,17,15,6,2,2
+Germany,63,13,Bombing/Explosion,Facility/Infrastructure Attack,Armed Assault,Unarmed Assault,Assassination,20,19,12,6,3
+Ghana,8,1,Bombing/Explosion,Armed Assault,Hostage Taking (Kidnapping),Unarmed Assault,NA,3,2,2,1,NA
+Greece,590,111,Bombing/Explosion,Facility/Infrastructure Attack,Armed Assault,Assassination,Unknown,377,112,44,40,8
+Guadeloupe,13,1,Bombing/Explosion,Unknown,NA,NA,NA,8,5,NA,NA,NA
+Guatemala,500,1057,Armed Assault,Bombing/Explosion,Assassination,Unknown,Hostage Taking (Kidnapping),184,152,48,42,36
+Guinea,1,30,Unknown,NA,NA,NA,NA,1,NA,NA,NA,NA
+Guyana,2,6,Assassination,Bombing/Explosion,NA,NA,NA,1,1,NA,NA,NA
+Haiti,24,60,Facility/Infrastructure Attack,Armed Assault,Assassination,Bombing/Explosion,Unarmed Assault,6,5,4,3,3
+Honduras,106,78,Bombing/Explosion,Armed Assault,Assassination,Facility/Infrastructure Attack,Hostage Taking (Barricade Incident),65,13,13,4,3
+Hungary,1,0,Unknown,NA,NA,NA,NA,1,NA,NA,NA,NA
+India,5506,10441,Bombing/Explosion,Armed Assault,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,Assassination,1814,1549,780,553,516
+Indonesia,307,803,Bombing/Explosion,Armed Assault,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),Unknown,125,93,24,21,19
+International,1,1,Bombing/Explosion,NA,NA,NA,NA,1,NA,NA,NA,NA
+Iran,193,938,Bombing/Explosion,Assassination,Armed Assault,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),90,38,35,9,8
+Iraq,7443,41902,Bombing/Explosion,Unknown,Armed Assault,Hostage Taking (Kidnapping),Assassination,4687,947,772,656,225
+Ireland,4,0,Bombing/Explosion,Armed Assault,NA,NA,NA,3,1,NA,NA,NA
+Israel,169,201,Bombing/Explosion,Armed Assault,Assassination,Facility/Infrastructure Attack,Unarmed Assault,103,31,13,11,4
+Italy,688,272,Bombing/Explosion,Armed Assault,Assassination,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),221,159,132,125,21
+Ivory Coast,3,0,Facility/Infrastructure Attack,Unarmed Assault,Unknown,NA,NA,1,1,1,NA,NA
+Jamaica,2,10,Armed Assault,NA,NA,NA,NA,2,NA,NA,NA,NA
+Japan,153,37,Bombing/Explosion,Facility/Infrastructure Attack,Armed Assault,Assassination,Unarmed Assault,56,53,23,11,5
+Jordan,30,13,Bombing/Explosion,Assassination,Armed Assault,Hostage Taking (Barricade Incident),Facility/Infrastructure Attack,13,7,4,3,1
+Kazakhstan,4,12,Armed Assault,Hijacking,NA,NA,NA,3,1,NA,NA,NA
+Kenya,55,384,Armed Assault,Bombing/Explosion,Unknown,Assassination,Facility/Infrastructure Attack,24,11,6,5,5
+Kosovo,17,11,Armed Assault,Bombing/Explosion,Unknown,Assassination,NA,7,7,2,1,NA
+Kuwait,4,0,Bombing/Explosion,Hostage Taking (Kidnapping),NA,NA,NA,3,1,NA,NA,NA
+Laos,1,0,Bombing/Explosion,NA,NA,NA,NA,1,NA,NA,NA,NA
+Latvia,3,0,Armed Assault,Bombing/Explosion,Facility/Infrastructure Attack,NA,NA,1,1,1,NA,NA
+Lebanon,749,1847,Bombing/Explosion,Armed Assault,Assassination,Hostage Taking (Kidnapping),Unknown,461,134,70,66,9
+Lesotho,12,19,Bombing/Explosion,Hijacking,NA,NA,NA,11,1,NA,NA,NA
+Liberia,15,76,Armed Assault,Hostage Taking (Kidnapping),Assassination,Unknown,NA,6,5,2,2,NA
+Libya,875,1838,Bombing/Explosion,Hostage Taking (Kidnapping),Armed Assault,Unknown,Facility/Infrastructure Attack,359,219,113,88,38
+Lithuania,1,0,Armed Assault,NA,NA,NA,NA,1,NA,NA,NA,NA
+Luxembourg,1,0,Bombing/Explosion,NA,NA,NA,NA,1,NA,NA,NA,NA
+Macedonia,42,19,Armed Assault,Bombing/Explosion,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),Unknown,18,9,8,3,3
+Madagascar,3,8,Armed Assault,Bombing/Explosion,NA,NA,NA,2,1,NA,NA,NA
+Malawi,5,2,Armed Assault,Facility/Infrastructure Attack,Unknown,NA,NA,3,1,1,NA,NA
+Malaysia,6,3,Bombing/Explosion,Armed Assault,Facility/Infrastructure Attack,NA,NA,3,2,1,NA,NA
+Maldives,2,0,Armed Assault,Facility/Infrastructure Attack,NA,NA,NA,1,1,NA,NA,NA
+Mali,389,1691,Bombing/Explosion,Armed Assault,Hostage Taking (Kidnapping),Unknown,Facility/Infrastructure Attack,131,125,53,45,18
+Martinique,5,0,Bombing/Explosion,Armed Assault,Facility/Infrastructure Attack,NA,NA,3,1,1,NA,NA
+Mexico,195,361,Armed Assault,Bombing/Explosion,Hostage Taking (Kidnapping),Assassination,Unknown,80,55,32,11,8
+Moldova,3,2,Bombing/Explosion,Armed Assault,NA,NA,NA,2,1,NA,NA,NA
+Morocco,11,48,Bombing/Explosion,Assassination,Unarmed Assault,Unknown,NA,6,3,1,1,NA
+Mozambique,453,3255,Armed Assault,Hostage Taking (Kidnapping),Bombing/Explosion,Facility/Infrastructure Attack,Unknown,252,76,40,38,28
+Myanmar,443,996,Bombing/Explosion,Armed Assault,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,Unknown,193,110,66,33,29
+Namibia,60,87,Bombing/Explosion,Assassination,Hostage Taking (Kidnapping),Armed Assault,Unknown,33,14,6,5,2
+Nepal,697,796,Bombing/Explosion,Facility/Infrastructure Attack,Armed Assault,Hostage Taking (Kidnapping),Assassination,308,174,88,72,27
+Netherlands,39,16,Bombing/Explosion,Armed Assault,Facility/Infrastructure Attack,Hijacking,Hostage Taking (Barricade Incident),17,8,7,2,2
+New Caledonia,13,23,Assassination,Facility/Infrastructure Attack,Armed Assault,Bombing/Explosion,Hostage Taking (Kidnapping),5,4,2,1,1
+New Zealand,6,0,Facility/Infrastructure Attack,Unarmed Assault,NA,NA,NA,4,2,NA,NA,NA
+Nicaragua,1654,9852,Armed Assault,Bombing/Explosion,Unknown,Hostage Taking (Kidnapping),Assassination,1152,240,82,56,54
+Niger,30,193,Hostage Taking (Kidnapping),Armed Assault,Bombing/Explosion,Unknown,NA,11,9,6,4,NA
+Nigeria,3097,21450,Armed Assault,Bombing/Explosion,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,Unknown,1331,979,319,193,179
+North Korea,1,3,Armed Assault,NA,NA,NA,NA,1,NA,NA,NA,NA
+Pakistan,3504,11853,Bombing/Explosion,Armed Assault,Assassination,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,1729,1005,281,254,82
+Panama,37,3,Bombing/Explosion,Facility/Infrastructure Attack,Unknown,NA,NA,26,9,2,NA,NA
+Papua New Guinea,31,45,Armed Assault,Unknown,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),Assassination,11,6,4,4,3
+Paraguay,80,47,Hostage Taking (Kidnapping),Armed Assault,Facility/Infrastructure Attack,Bombing/Explosion,Hostage Taking (Barricade Incident),23,19,17,11,4
+Peru,5145,12196,Bombing/Explosion,Armed Assault,Assassination,Unknown,Facility/Infrastructure Attack,2546,1225,865,188,181
+Philippines,5261,7804,Armed Assault,Bombing/Explosion,Hostage Taking (Kidnapping),Assassination,Facility/Infrastructure Attack,1911,1480,533,500,468
+Poland,4,1,Bombing/Explosion,Assassination,NA,NA,NA,3,1,NA,NA,NA
+Portugal,66,14,Bombing/Explosion,Assassination,Armed Assault,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),49,9,3,3,1
+Qatar,2,2,Bombing/Explosion,NA,NA,NA,NA,2,NA,NA,NA,NA
+Republic of the Congo,1,44,Bombing/Explosion,NA,NA,NA,NA,1,NA,NA,NA,NA
+Rhodesia,1,1,Armed Assault,NA,NA,NA,NA,1,NA,NA,NA,NA
+Russia,450,2647,Bombing/Explosion,Armed Assault,Assassination,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),245,137,27,17,11
+Rwanda,66,2617,Armed Assault,Unknown,Bombing/Explosion,Assassination,Hostage Taking (Kidnapping),35,13,12,4,2
+Saudi Arabia,45,205,Bombing/Explosion,Armed Assault,Assassination,Hostage Taking (Barricade Incident),Hostage Taking (Kidnapping),27,11,4,1,1
+Senegal,85,236,Armed Assault,Bombing/Explosion,Hostage Taking (Kidnapping),Unknown,Assassination,50,12,7,7,5
+Sierra Leone,70,578,Armed Assault,Hostage Taking (Kidnapping),Unknown,Bombing/Explosion,Assassination,36,17,8,5,1
+Singapore,1,0,Hostage Taking (Kidnapping),NA,NA,NA,NA,1,NA,NA,NA,NA
+Solomon Islands,3,3,Armed Assault,Assassination,Hijacking,NA,NA,1,1,1,NA,NA
+Somalia,4014,11297,Bombing/Explosion,Armed Assault,Assassination,Unknown,Hostage Taking (Kidnapping),1459,1160,461,455,361
+South Africa,714,1049,Bombing/Explosion,Armed Assault,Assassination,Unknown,Facility/Infrastructure Attack,421,96,91,90,14
+South Korea,5,1,Facility/Infrastructure Attack,Unarmed Assault,Unknown,NA,NA,2,2,1,NA,NA
+South Sudan,205,2352,Hostage Taking (Kidnapping),Unknown,Armed Assault,Facility/Infrastructure Attack,Bombing/Explosion,77,63,51,8,4
+South Yemen,1,0,Bombing/Explosion,NA,NA,NA,NA,1,NA,NA,NA,NA
+Spain,2554,1132,Bombing/Explosion,Assassination,Armed Assault,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),1516,547,232,129,88
+Sri Lanka,2311,13662,Bombing/Explosion,Armed Assault,Assassination,Unknown,Facility/Infrastructure Attack,864,827,302,137,89
+St. Kitts and Nevis,1,0,Unarmed Assault,NA,NA,NA,NA,1,NA,NA,NA,NA
+Sudan,373,1616,Armed Assault,Hostage Taking (Kidnapping),Unknown,Bombing/Explosion,Facility/Infrastructure Attack,136,105,39,37,22
+Suriname,48,21,Armed Assault,Facility/Infrastructure Attack,Bombing/Explosion,Hijacking,Unknown,22,7,5,5,5
+Swaziland,5,1,Bombing/Explosion,Facility/Infrastructure Attack,NA,NA,NA,3,2,NA,NA,NA
+Sweden,9,0,Facility/Infrastructure Attack,Bombing/Explosion,Armed Assault,NA,NA,4,3,2,NA,NA
+Switzerland,7,1,Bombing/Explosion,Assassination,Hijacking,NA,NA,5,1,1,NA,NA
+Syria,1754,15062,Bombing/Explosion,Hostage Taking (Kidnapping),Unknown,Armed Assault,Assassination,1030,251,195,160,76
+Taiwan,1,0,Unknown,NA,NA,NA,NA,1,NA,NA,NA,NA
+Tajikistan,10,7,Armed Assault,Assassination,Bombing/Explosion,Hostage Taking (Barricade Incident),NA,5,2,2,1,NA
+Tanzania,9,16,Bombing/Explosion,Armed Assault,Hostage Taking (Kidnapping),NA,NA,7,1,1,NA,NA
+Thailand,428,236,Bombing/Explosion,Armed Assault,Facility/Infrastructure Attack,Assassination,Hijacking,307,77,21,11,7
+Togo,4,26,Armed Assault,NA,NA,NA,NA,4,NA,NA,NA,NA
+Tunisia,60,246,Armed Assault,Bombing/Explosion,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,Assassination,21,19,8,4,3
+Turkey,2859,5775,Bombing/Explosion,Armed Assault,Assassination,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),1144,1015,214,193,148
+Uganda,250,2291,Armed Assault,Hostage Taking (Kidnapping),Unknown,Bombing/Explosion,Assassination,126,31,31,29,19
+Ukraine,918,1998,Bombing/Explosion,Armed Assault,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,Unknown,447,266,93,50,44
+United Arab Emirates,1,111,Bombing/Explosion,NA,NA,NA,NA,1,NA,NA,NA,NA
+United Kingdom,3432,2556,Bombing/Explosion,Assassination,Armed Assault,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),1294,1289,454,296,39
+United States,1072,3147,Bombing/Explosion,Facility/Infrastructure Attack,Armed Assault,Hostage Taking (Barricade Incident),Assassination,534,267,117,50,46
+Uruguay,48,4,Armed Assault,Bombing/Explosion,Facility/Infrastructure Attack,Hostage Taking (Kidnapping),Assassination,10,10,10,10,6
+Uzbekistan,5,10,Bombing/Explosion,NA,NA,NA,NA,5,NA,NA,NA,NA
+Vanuatu,2,0,Hostage Taking (Barricade Incident),Hostage Taking (Kidnapping),NA,NA,NA,1,1,NA,NA,NA
+Venezuela,55,76,Bombing/Explosion,Hostage Taking (Kidnapping),Armed Assault,Hijacking,Assassination,16,11,10,5,4
+Vietnam,3,0,Facility/Infrastructure Attack,Bombing/Explosion,NA,NA,NA,2,1,NA,NA,NA
+West Bank and Gaza Strip,1645,1275,Armed Assault,Bombing/Explosion,Assassination,Unarmed Assault,Hostage Taking (Kidnapping),700,419,285,108,59
+West Germany (FRG),4,9,Armed Assault,Facility/Infrastructure Attack,Hijacking,NA,NA,2,1,1,NA,NA
+Western Sahara,5,1,Armed Assault,Hostage Taking (Kidnapping),Facility/Infrastructure Attack,NA,NA,2,2,1,NA,NA
+Yemen,4350,11358,Bombing/Explosion,Armed Assault,Unknown,Hostage Taking (Kidnapping),Assassination,1890,755,657,647,301
+Yugoslavia,4,1,Armed Assault,Assassination,NA,NA,NA,2,2,NA,NA,NA
+Zambia,2,0,Bombing/Explosion,Facility/Infrastructure Attack,NA,NA,NA,1,1,NA,NA,NA
+Zimbabwe,31,52,Armed Assault,Assassination,Facility/Infrastructure Attack,Unknown,Hostage Taking (Kidnapping),11,7,4,4,2
