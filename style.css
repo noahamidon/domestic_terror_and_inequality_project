@@ -22,21 +22,44 @@ body {
 
 .title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 4px;
     color: #ffffff;
     letter-spacing: 2px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: #888;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
 }
 
 .map-section {
     flex: 2;
     background-color: #1e1f26;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
     position: relative;
     overflow: hidden;
     min-height: 0;
+}
+
+.map-hint {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 0.68rem;
+    font-weight: 300;
+    color: #666;
+    z-index: 20;
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.3px;
+    text-align: right;
 }
 
 .viz-section {
@@ -46,6 +69,35 @@ body {
     position: relative;
     overflow: hidden;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.scatter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 16px 0;
+    flex-shrink: 0;
+}
+
+.scatter-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #ddd;
+    letter-spacing: 0.5px;
+}
+
+.scatter-hint {
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: #555;
+}
+
+#scatter-container {
+    flex: 1;
+    min-height: 0;
+    position: relative;
 }
 
 /* ── Citations ── */
@@ -199,14 +251,15 @@ body {
 
 .country {
     stroke: #272932;
-    stroke-width: 0.5px;
+    stroke-width: 0.2px;
     transition: opacity 0.2s;
+    cursor: pointer;
 }
 
 .country:hover {
     opacity: 0.8;
     stroke: #ffffff;
-    stroke-width: 1.5px;
+    stroke-width: 0.8px;
 }
 
 #legend {
@@ -216,12 +269,13 @@ body {
     z-index: 10;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
 }
 
 #legend h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #bbb;
 }
 
 .legend-scale {
@@ -253,15 +307,16 @@ body {
 }
 
 #stats h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #bbb;
+    margin-bottom: 6px;
 }
 
 #stats p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 300;
-    margin: 5px 0;
+    margin: 3px 0;
 }
 
 .stat-number {
@@ -270,11 +325,6 @@ body {
 }
 
 #map-container {
-    width: 100%;
-    height: 100%;
-}
-
-#scatter-container {
     width: 100%;
     height: 100%;
 }
@@ -296,4 +346,110 @@ body {
   border-top: 1px solid #444;
   line-height: 1.45;
   font-style: italic;
+}
+
+/* ── Country detail popup ── */
+.country-popup {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 260px;
+    max-height: calc(100% - 100px);
+    background-color: rgba(30, 31, 38, 0.95);
+    border: 2px solid #888;
+    border-radius: 10px;
+    padding: 16px 18px 14px;
+    z-index: 500;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.3s ease;
+    visibility: hidden;
+    overflow-y: auto;
+}
+
+.country-popup.visible {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.country-popup-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 4px;
+    transition: color 0.2s;
+    font-family: 'Oswald', sans-serif;
+}
+
+.country-popup-close:hover { color: #fff; }
+
+.country-popup-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #444;
+    padding-right: 24px;
+}
+
+.country-popup-body {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: #ccc;
+}
+
+.country-popup-region {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 1px 6px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.country-popup-stats {
+    margin: 6px 0 4px;
+}
+
+.country-popup-stats p {
+    margin: 2px 0;
+    font-size: 0.78rem;
+}
+
+.cp-stat-num {
+    font-weight: 600;
+    color: #ff6b6b;
+}
+
+.cp-no-data {
+    color: #555;
+    font-size: 0.72rem;
+    margin: 6px 0;
+}
+
+.cp-chart-label {
+    font-size: 0.6rem;
+    color: #666;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cp-attack-types {
+    font-size: 0.72rem;
+    color: #999;
+    line-height: 1.4;
 }

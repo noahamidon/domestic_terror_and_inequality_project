@@ -11,9 +11,11 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="title">Does inequality breed domestic terror? (1970-2020)</h1>
+        <h1 class="title">Does inequality breed domestic terror?</h1>
+        <p class="subtitle">Mapping 50 years of global terrorism (1970–2020) and its relationship with economic inequality</p>
 
         <div class="map-section">
+            <div class="map-hint">Hover a country for details &nbsp;·&nbsp; Click a country for trends</div>
             <div id="map-container">
                 <div id="tooltip" class="tooltip"></div>
                 <div id="legend"></div>
@@ -25,9 +27,14 @@
                 <h3 id="region-popup-title" class="region-popup-title"></h3>
                 <div id="region-popup-body" class="region-popup-body"></div>
             </div>
+            <!-- Country detail popups are created dynamically -->
         </div>
 
         <div class="viz-section">
+            <div class="scatter-header">
+                <span class="scatter-title">Inequality vs. Political Violence — by World Region</span>
+                <span class="scatter-hint">Click a region line to focus · Click background to reset</span>
+            </div>
             <div id="scatter-container">
                 <div id="scatter-tooltip" class="scatter-tooltip"></div>
             </div>

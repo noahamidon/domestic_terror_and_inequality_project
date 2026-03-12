@@ -48,6 +48,32 @@ let mapWidth = 0;
 let mapHeight = 0;
 let baseScale = 0;
 
+// ── Additional global state ──
+let wiidgtdData = [];
+let countryRegionMap = {};
+let openCountryPopups = [];   // [{ gtdName, el }]
+let popupZCounter = 510;      // z-index above region popup (500)
+
+// TopoJSON country name → GTD country name (used in map rendering and hover)
+const topoToGtdNameMap = {
+    'United States of America': 'United States',
+    'Bosnia and Herz.': 'Bosnia-Herzegovina',
+    'Central African Rep.': 'Central African Republic',
+    'Dem. Rep. Congo': 'Democratic Republic of the Congo',
+    'Congo': 'Republic of the Congo',
+    'Côte d\'Ivoire': 'Ivory Coast',
+    'Czech Rep.': 'Czech Republic',
+    'Dominican Rep.': 'Dominican Republic',
+    'Eq. Guinea': 'Equatorial Guinea',
+    'N. Korea': 'North Korea',
+    'S. Korea': 'South Korea',
+    'Lao PDR': 'Laos',
+    'Palestine': 'West Bank and Gaza Strip',
+    'S. Sudan': 'South Sudan',
+    'Solomon Is.': 'Solomon Islands',
+    'W. Sahara': 'Western Sahara'
+};
+
 // Reference to popup elements
 const regionPopup      = () => document.getElementById('region-popup');
 const regionPopupTitle  = () => document.getElementById('region-popup-title');
@@ -57,10 +83,19 @@ const regionPopupClose  = () => document.getElementById('region-popup-close');
 // Initialize the visualization
 async function init() {
     try {
-        const [world, csvData] = await Promise.all([
+        const [world, csvData, wiidData] = await Promise.all([
             d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'),
-            d3.csv('processed_gtd.csv')
+            d3.csv('data/processed_gtd.csv'),
+            d3.csv('data/processed_wiidgtd.csv')
         ]);
+
+        // Store wiidgtd globally and build country → region map
+        wiidgtdData = wiidData;
+        wiidData.forEach(d => {
+            if (d.country_txt && d.region_un && !countryRegionMap[d.country_txt]) {
+                countryRegionMap[d.country_txt] = d.region_un;
+            }
+        });
 
         processData(csvData);
         createMap(world);
@@ -68,12 +103,12 @@ async function init() {
         displayStats();
         createScatterplot();
 
-        // Wire up popup close button
+        // Wire up popup close buttons
         regionPopupClose().addEventListener('click', () => {
             hideRegionPopup();
-            // Also tell the scatterplot to deselect
             if (window._clearScatterFocus) window._clearScatterFocus();
         });
+        // Country popups are self-contained — no global close button needed
 
     } catch (error) {
         console.error('Error loading data:', error);
@@ -127,25 +162,6 @@ function createMap(world) {
 
     const countries = topojson.feature(world, world.objects.countries).features;
 
-    const countryNameMapping = {
-        'United States of America': 'United States',
-        'Bosnia and Herz.': 'Bosnia-Herzegovina',
-        'Central African Rep.': 'Central African Republic',
-        'Dem. Rep. Congo': 'Democratic Republic of the Congo',
-        'Congo': 'Republic of the Congo',
-        'Côte d\'Ivoire': 'Ivory Coast',
-        'Czech Rep.': 'Czech Republic',
-        'Dominican Rep.': 'Dominican Republic',
-        'Eq. Guinea': 'Equatorial Guinea',
-        'N. Korea': 'North Korea',
-        'S. Korea': 'South Korea',
-        'Lao PDR': 'Laos',
-        'Palestine': 'West Bank and Gaza Strip',
-        'S. Sudan': 'South Sudan',
-        'Solomon Is.': 'Solomon Islands',
-        'W. Sahara': 'Western Sahara'
-    };
-
     // Wrap countries in a <g> so we can transform it for zoom
     mapG = mapSvg.append('g').attr('class', 'map-g');
 
@@ -157,13 +173,23 @@ function createMap(world) {
         .attr('d', path)
         .attr('fill', d => {
             const name = d.properties.name;
-            const mappedName = countryNameMapping[name] || name;
+            const mappedName = topoToGtdNameMap[name] || name;
             const stats = countryStats[mappedName];
             return stats ? colorScale(stats.totalEvents) : '#3a3d4a';
         })
+        .attr('data-region', d => {
+            const mappedName = topoToGtdNameMap[d.properties.name] || d.properties.name;
+            return countryRegionMap[mappedName] || '';
+        })
         .on('mouseover', handleMouseOver)
         .on('mousemove', handleMouseMove)
-        .on('mouseout', handleMouseOut);
+        .on('mouseout', handleMouseOut)
+        .on('click', function(event, d) {
+            event.stopPropagation();
+            const topoName = d.properties.name;
+            const gtdName = topoToGtdNameMap[topoName] || topoName;
+            showCountryPopup(gtdName, topoName);
+        });
 }
 
 // ── Map zoom helpers ──
@@ -227,26 +253,158 @@ function hideRegionPopup() {
     popup.classList.remove('visible');
 }
 
+// ── Country detail popups (multiple, dynamically created) ──
+function showCountryPopup(gtdName, topoName) {
+    // If already open, just bring it to the front
+    const existing = openCountryPopups.find(p => p.gtdName === gtdName);
+    if (existing) {
+        existing.el.style.zIndex = ++popupZCounter;
+        return;
+    }
+
+    const stats       = countryStats[gtdName];
+    const countryData = wiidgtdData.filter(d => d.country_txt === gtdName);
+    const region      = countryRegionMap[gtdName] || '';
+    const color       = regionColorMap[region] || '#888';
+    const displayName = (stats && stats.name) || gtdName || topoName;
+    const uid         = 'cp' + Date.now();
+
+    // Cascade position based on number of currently open popups (6-slot cycle)
+    const slot = openCountryPopups.length % 6;
+    const offsetPx = slot * 22;
+
+    const popup = document.createElement('div');
+    popup.className = 'country-popup';
+    popup.style.top         = (20 + offsetPx) + 'px';
+    popup.style.left        = (20 + offsetPx) + 'px';
+    popup.style.zIndex      = ++popupZCounter;
+    popup.style.borderColor = color;
+
+    const hasTimeSeries = countryData.length >= 2;
+    const hasGini = hasTimeSeries && countryData.some(d => +d.gini > 0);
+
+    let body = '';
+    if (region) body += `<span class="country-popup-region" style="color:${color}; border-color:${color}55;">${region}</span>`;
+
+    if (stats) {
+        body += `<div class="country-popup-stats">
+            <p>Events 1970–2020: <span class="cp-stat-num">${stats.totalEvents.toLocaleString()}</span></p>
+            <p>Deaths 1970–2020: <span class="cp-stat-num">${stats.totalDeaths.toLocaleString()}</span></p>
+        </div>`;
+    } else {
+        body += '<p class="cp-no-data">No terrorism events recorded</p>';
+    }
+
+    if (hasTimeSeries) {
+        body += `<p class="cp-chart-label">Attacks per year</p><div id="${uid}-events"></div>`;
+        if (hasGini) body += `<p class="cp-chart-label">Gini coefficient</p><div id="${uid}-gini"></div>`;
+    } else {
+        body += '<p class="cp-no-data">No year-by-year data available</p>';
+    }
+
+    if (stats && stats.attackTypes.length > 0) {
+        body += `<p class="cp-chart-label" style="margin-top:10px;">Top attack types</p>
+            <p class="cp-attack-types">${stats.attackTypes.slice(0, 3).join(' · ')}</p>`;
+    }
+
+    popup.innerHTML = `
+        <button class="country-popup-close">&times;</button>
+        <h3 class="country-popup-title" style="color:${color};">${displayName}</h3>
+        <div class="country-popup-body">${body}</div>`;
+
+    document.querySelector('.map-section').appendChild(popup);
+    openCountryPopups.push({ gtdName, el: popup });
+
+    // Force reflow so the initial CSS state is painted before the transition
+    popup.offsetHeight;
+    popup.classList.add('visible');
+
+    // Render sparklines now that the elements are in the DOM
+    if (hasTimeSeries) {
+        const sorted = [...countryData].sort((a, b) => +a.iyear - +b.iyear);
+        renderSparkline(`${uid}-events`, sorted, 'iyear', 'tot_events', color);
+        if (hasGini) {
+            const giniData = sorted.filter(d => +d.gini > 0);
+            if (giniData.length >= 2) renderSparkline(`${uid}-gini`, giniData, 'iyear', 'gini', '#9ca3af');
+        }
+    }
+
+    // Close button removes just this popup
+    popup.querySelector('.country-popup-close').addEventListener('click', () => {
+        popup.classList.remove('visible');
+        setTimeout(() => {
+            popup.remove();
+            openCountryPopups = openCountryPopups.filter(p => p.el !== popup);
+        }, 350);
+    });
+
+    // Click anywhere on popup to bring it to the front
+    popup.addEventListener('mousedown', () => {
+        popup.style.zIndex = ++popupZCounter;
+    });
+}
+
+function hideCountryPopup() {
+    openCountryPopups.forEach(({ el }) => el.remove());
+    openCountryPopups = [];
+}
+
+function renderSparkline(containerId, data, xKey, yKey, color) {
+    const el = document.getElementById(containerId);
+    if (!el || data.length < 2) return;
+
+    const W = 224, H = 54;
+    const m = { top: 4, right: 4, bottom: 16, left: 32 };
+    const iW = W - m.left - m.right;
+    const iH = H - m.top - m.bottom;
+
+    const svg = d3.select(el).append('svg').attr('width', W).attr('height', H);
+
+    const xs = d3.scaleLinear()
+        .domain(d3.extent(data, d => +d[xKey]))
+        .range([0, iW]);
+
+    const yMax = d3.max(data, d => +d[yKey]);
+    const ys = d3.scaleLinear()
+        .domain([0, yMax])
+        .range([iH, 0]);
+
+    const g = svg.append('g').attr('transform', `translate(${m.left},${m.top})`);
+
+    // Area fill
+    g.append('path')
+        .datum(data)
+        .attr('fill', color + '22')
+        .attr('d', d3.area().x(d => xs(+d[xKey])).y0(iH).y1(d => ys(+d[yKey])));
+
+    // Line
+    g.append('path')
+        .datum(data)
+        .attr('fill', 'none')
+        .attr('stroke', color)
+        .attr('stroke-width', 1.5)
+        .attr('d', d3.line().x(d => xs(+d[xKey])).y(d => ys(+d[yKey])));
+
+    const fmtY = v => yMax >= 1000 ? (v / 1000).toFixed(1) + 'k' : (+v).toFixed(yKey === 'gini' ? 1 : 0);
+    const labelStyle = sel => sel
+        .attr('fill', '#555')
+        .attr('font-size', '8px')
+        .attr('font-family', 'Oswald, sans-serif');
+
+    // Y labels
+    labelStyle(svg.append('text').attr('x', m.left - 3).attr('y', m.top + 9).attr('text-anchor', 'end')).text(fmtY(yMax));
+    labelStyle(svg.append('text').attr('x', m.left - 3).attr('y', H - m.bottom).attr('text-anchor', 'end')).text('0');
+
+    // X labels
+    const years = data.map(d => +d[xKey]);
+    labelStyle(svg.append('text').attr('x', m.left).attr('y', H - 2)).text(d3.min(years));
+    labelStyle(svg.append('text').attr('x', W - m.right).attr('y', H - 2).attr('text-anchor', 'end')).text(d3.max(years));
+}
+
 // Tooltip event handlers
 function handleMouseOver(event, d) {
     const countryName = d.properties.name;
-
-    const countryNameMapping = {
-        'United States of America': 'United States',
-        'Bosnia and Herz.': 'Bosnia-Herzegovina',
-        'Central African Rep.': 'Central African Republic',
-        'Dem. Rep. Congo': 'Democratic Republic of the Congo',
-        'Congo': 'Republic of the Congo',
-        'Côte d\'Ivoire': 'Ivory Coast',
-        'Czech Rep.': 'Czech Republic',
-        'Dominican Rep.': 'Dominican Republic',
-        'Palestine': 'West Bank and Gaza Strip',
-        'S. Sudan': 'South Sudan',
-        'S. Korea': 'South Korea',
-        'N. Korea': 'North Korea'
-    };
-
-    const mappedName = countryNameMapping[countryName] || countryName;
+    const mappedName = topoToGtdNameMap[countryName] || countryName;
     const stats = countryStats[mappedName];
 
     const tooltip = d3.select('#tooltip');
@@ -320,18 +478,26 @@ function createLegend() {
     const maxEvents = Math.max(...Object.values(countryStats).map(d => d.totalEvents));
     const legend = document.getElementById('legend');
 
+    const midVal = Math.round(maxEvents / 2).toLocaleString();
+    const maxVal = maxEvents.toLocaleString();
+
     const legendHTML = `
-        <h3>Attack Frequency</h3>
+        <h3>Total Attacks (1970–2020)</h3>
         <div class="legend-scale">
-            <span>Low</span>
-            <div class="legend-gradient" style="background: linear-gradient(to right,
-                ${colorScale(0)},
-                ${colorScale(maxEvents * 0.25)},
-                ${colorScale(maxEvents * 0.5)},
-                ${colorScale(maxEvents * 0.75)},
-                ${colorScale(maxEvents)});">
+            <div>
+                <div class="legend-gradient" style="background: linear-gradient(to right,
+                    ${colorScale(0)},
+                    ${colorScale(maxEvents * 0.25)},
+                    ${colorScale(maxEvents * 0.5)},
+                    ${colorScale(maxEvents * 0.75)},
+                    ${colorScale(maxEvents)});">
+                </div>
+                <div class="legend-labels">
+                    <span>0</span>
+                    <span>${midVal}</span>
+                    <span>${maxVal}</span>
+                </div>
             </div>
-            <span>High</span>
         </div>
     `;
 
@@ -374,7 +540,7 @@ function createScatterplot() {
     const width = container.clientWidth;
     const height = container.clientHeight;
 
-    const margin = { top: 50, right: 30, bottom: 40, left: 60 };
+    const margin = { top: 12, right: 30, bottom: 40, left: 60 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
@@ -457,7 +623,7 @@ function createScatterplot() {
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
     // Load and process data
-    d3.csv('processed_wiidgtd.csv').then(data => {
+    d3.csv('data/processed_wiidgtd.csv').then(data => {
         // Parse numeric values
         data.forEach(d => {
             d.gini = +d.gini;
@@ -505,7 +671,7 @@ function createScatterplot() {
             .attr('fill', '#ffffff')
             .attr('text-anchor', 'middle')
             .attr('font-size', '0.85rem')
-            .text('Gini Coefficient (High Inequality)');
+            .text('← Lower Inequality    Gini Coefficient    Higher Inequality →');
 
         // Y axis group (will be updated on toggle)
         const yAxisGroup = g.append('g').attr('class', 'y-axis');
@@ -578,8 +744,15 @@ function createScatterplot() {
                     .attr('opacity', 0.9)
                     .attr('stroke-width', 4);
 
-                // Reset map zoom
+                // Reset map zoom and country highlighting
                 resetMapZoom();
+                if (mapG) {
+                    mapG.selectAll('.country')
+                        .transition().duration(600)
+                        .attr('opacity', 1)
+                        .attr('stroke', '#272932')
+                        .attr('stroke-width', 0.2);
+                }
                 // Hide popup
                 hideRegionPopup();
             } else {
@@ -600,8 +773,20 @@ function createScatterplot() {
                     .attr('opacity', 1)
                     .attr('stroke-width', 4);
 
-                // Zoom map to region
+                // Zoom map and cross-highlight countries in focused region
                 zoomMapToRegion(focusedRegion);
+                if (mapG) {
+                    mapG.selectAll('.country')
+                        .transition().duration(600)
+                        .attr('opacity', 0.15)
+                        .attr('stroke', '#272932')
+                        .attr('stroke-width', 0.2);
+                    mapG.selectAll(`.country[data-region="${focusedRegion}"]`)
+                        .transition().duration(600)
+                        .attr('opacity', 1)
+                        .attr('stroke', regionColorMap[focusedRegion])
+                        .attr('stroke-width', 0.8);
+                }
                 // Show popup
                 showRegionPopup(focusedRegion);
             }
@@ -665,22 +850,55 @@ function createScatterplot() {
                 const color = regionColors[region] || '#888';
                 const regionClass = region.replace(/\s/g, '');
 
-                // Dots — slightly bigger (r=2.5), low default opacity
+                // Dots — with enter animation and hover tooltip
+                const regionSmooth = loess(regionData, d => d.gini, yAccessor, 0.4);
+
                 plotGroup.selectAll('.dot-' + regionClass)
                     .data(regionData)
                     .enter()
                     .append('circle')
                     .attr('class', 'region-dots region-dots-' + regionClass)
                     .attr('cx', d => xScale(d.gini))
-                    .attr('cy', d => yScale(yAccessor(d)))
+                    .attr('cy', innerHeight)
                     .attr('r', 2.5)
                     .attr('fill', color)
+                    .attr('opacity', 0)
+                    .style('cursor', 'crosshair')
+                    .on('mouseover', function(_event, d) {
+                        d3.select(this).raise()
+                            .transition().duration(80)
+                            .attr('r', 5)
+                            .attr('opacity', 0.95);
+                        const val = isEvents ? +d.tot_events : +d.tot_deaths;
+                        const label = isEvents ? 'events' : 'deaths';
+                        scatterTooltip
+                            .style('border-color', color)
+                            .html(`<span style="color:${color}; font-weight:600;">${d.country_txt}</span> <span style="color:#666; font-size:0.65rem;">${d.iyear}</span><br><span style="color:#aaa; font-size:0.7rem;">Gini ${(+d.gini).toFixed(1)} &nbsp;·&nbsp; ${val.toLocaleString()} ${label}</span>`)
+                            .style('opacity', 1);
+                    })
+                    .on('mousemove', function(event) {
+                        const cr = container.getBoundingClientRect();
+                        scatterTooltip
+                            .style('left', (event.clientX - cr.left + 12) + 'px')
+                            .style('top',  (event.clientY - cr.top  - 40) + 'px');
+                    })
+                    .on('mouseout', function() {
+                        const targetOpacity = focusedRegion === null ? 0.2
+                            : (focusedRegion === region ? 0.6 : 0.05);
+                        d3.select(this)
+                            .transition().duration(80)
+                            .attr('r', 2.5)
+                            .attr('opacity', targetOpacity);
+                        scatterTooltip.style('opacity', 0);
+                    })
+                    .transition()
+                    .duration(500)
+                    .delay((d, i) => i * 3)
+                    .attr('cy', d => yScale(yAccessor(d)))
                     .attr('opacity', 0.2);
 
-                // Smooth line for this region — SOLID
-                const regionSmooth = loess(regionData, d => d.gini, yAccessor, 0.4);
-
-                plotGroup.append('path')
+                // Smooth line for this region — SOLID with draw animation
+                const regionPath = plotGroup.append('path')
                     .datum(regionSmooth)
                     .attr('class', 'region-line region-line-' + regionClass)
                     .attr('fill', 'none')
@@ -688,6 +906,16 @@ function createScatterplot() {
                     .attr('stroke-width', 3)
                     .attr('opacity', 0.85)
                     .attr('d', lineGenerator);
+
+                // Animate the path drawing
+                const totalLength = regionPath.node().getTotalLength();
+                regionPath
+                    .attr('stroke-dasharray', totalLength + ' ' + totalLength)
+                    .attr('stroke-dashoffset', totalLength)
+                    .transition()
+                    .duration(800)
+                    .ease(d3.easeCubicOut)
+                    .attr('stroke-dashoffset', 0);
 
                 // Invisible wider hit area for hover and click
                 plotGroup.append('path')
@@ -741,7 +969,7 @@ function createScatterplot() {
             // Global smooth line — DASHED
             const globalSmooth = loess(currentData, d => d.gini, yAccessor, 0.4);
 
-            plotGroup.append('path')
+            const globalPath = plotGroup.append('path')
                 .datum(globalSmooth)
                 .attr('class', 'global-line')
                 .attr('fill', 'none')
@@ -750,6 +978,13 @@ function createScatterplot() {
                 .attr('stroke-dasharray', '8,5')
                 .attr('opacity', 0.9)
                 .attr('d', lineGenerator);
+
+            // No dash-offset animation for dashed line (conflicts with dash pattern)
+            globalPath
+                .attr('opacity', 0)
+                .transition()
+                .duration(800)
+                .attr('opacity', 0.9);
 
             // Invisible wider hit area for global line hover
             plotGroup.append('path')
