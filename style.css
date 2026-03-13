@@ -6,8 +6,8 @@
 
 body {
     font-family: 'Oswald', sans-serif;
-    background-color: #272932;
-    color: #ffffff;
+    background-color: #0D1117;
+    color: #C9D1D9;
     min-height: 100vh;
 }
 
@@ -22,26 +22,27 @@ body {
 
 .title {
     text-align: center;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 4px;
-    color: #ffffff;
-    letter-spacing: 2px;
+    color: #E6EDF3;
+    letter-spacing: 1.5px;
 }
 
 .subtitle {
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 300;
-    color: #888;
+    color: #8B949E;
     margin-bottom: 14px;
     letter-spacing: 0.5px;
 }
 
 .map-section {
     flex: 2;
-    background-color: #1e1f26;
-    border-radius: 10px;
+    background-color: #161B22;
+    border: 1px solid #21262D;
+    border-radius: 8px;
     margin-bottom: 8px;
     position: relative;
     overflow: hidden;
@@ -52,9 +53,9 @@ body {
     position: absolute;
     top: 10px;
     right: 20px;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 300;
-    color: #666;
+    color: #555B66;
     z-index: 20;
     white-space: nowrap;
     pointer-events: none;
@@ -64,8 +65,9 @@ body {
 
 .viz-section {
     flex: 1;
-    background-color: #1e1f26;
-    border-radius: 10px;
+    background-color: #161B22;
+    border: 1px solid #21262D;
+    border-radius: 8px;
     position: relative;
     overflow: hidden;
     min-height: 0;
@@ -82,16 +84,16 @@ body {
 }
 
 .scatter-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    color: #ddd;
+    color: #C9D1D9;
     letter-spacing: 0.5px;
 }
 
 .scatter-hint {
     font-size: 0.65rem;
     font-weight: 300;
-    color: #555;
+    color: #555B66;
 }
 
 #scatter-container {
@@ -106,7 +108,7 @@ body {
     padding: 0 4px;
     font-size: 0.65rem;
     font-weight: 300;
-    color: #777;
+    color: #555B66;
     text-align: right;
     line-height: 1.5;
     flex-shrink: 0;
@@ -117,14 +119,14 @@ body {
 }
 
 .citations a {
-    color: #999;
+    color: #8B949E;
     text-decoration: none;
-    border-bottom: 1px dotted #666;
+    border-bottom: 1px dotted #30363D;
     transition: color 0.2s;
 }
 
 .citations a:hover {
-    color: #ccc;
+    color: #C9D1D9;
 }
 
 /* ── Region story popup ── */
@@ -134,9 +136,9 @@ body {
     right: 20px;
     width: 280px;
     max-height: calc(100% - 40px);
-    background-color: rgba(30, 31, 38, 0.95);
-    border: 2px solid #888;
-    border-radius: 10px;
+    background-color: rgba(22, 27, 34, 0.97);
+    border: 1.5px solid #30363D;
+    border-radius: 8px;
     padding: 18px 20px 16px;
     z-index: 500;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
@@ -160,7 +162,7 @@ body {
     right: 12px;
     background: none;
     border: none;
-    color: #aaa;
+    color: #8B949E;
     font-size: 1.4rem;
     cursor: pointer;
     line-height: 1;
@@ -170,30 +172,30 @@ body {
 }
 
 .region-popup-close:hover {
-    color: #fff;
+    color: #E6EDF3;
 }
 
 .region-popup-title {
-    font-size: 1.15rem;
+    font-size: 1rem;
     font-weight: 600;
     margin-bottom: 10px;
     padding-bottom: 8px;
-    border-bottom: 1px solid #555;
+    border-bottom: 1px solid #30363D;
     padding-right: 24px;
 }
 
 .region-popup-body {
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     font-weight: 300;
     line-height: 1.55;
-    color: #ccc;
+    color: #8B949E;
 }
 
 /* ── Tooltips ── */
 .tooltip {
     position: absolute;
-    background-color: rgba(39, 41, 50, 0.95);
-    border: 2px solid #ff6b6b;
+    background-color: rgba(22, 27, 34, 0.97);
+    border: 1.5px solid #E6A817;
     border-radius: 6px;
     padding: 10px 12px;
     pointer-events: none;
@@ -202,22 +204,23 @@ body {
     z-index: 1000;
     min-width: 180px;
     max-width: 220px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     font-size: 0.85rem;
 }
 
 .tooltip h3 {
     font-size: 1rem;
     margin-bottom: 6px;
-    color: #ff6b6b;
-    border-bottom: 1px solid #ff6b6b;
+    color: #E6A817;
+    border-bottom: 1px solid #30363D;
     padding-bottom: 4px;
 }
 
 .tooltip p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     margin: 3px 0;
     font-weight: 300;
+    color: #8B949E;
 }
 
 .tooltip .attack-list {
@@ -225,6 +228,7 @@ body {
     font-weight: 300;
     line-height: 1.4;
     margin-top: 4px;
+    color: #8B949E;
 }
 
 .tooltip .attack-list span {
@@ -234,23 +238,23 @@ body {
 /* Scatter tooltip for region lines */
 .scatter-tooltip {
     position: absolute;
-    background-color: rgba(39, 41, 50, 0.95);
-    border: 2px solid #888;
+    background-color: rgba(22, 27, 34, 0.97);
+    border: 1.5px solid #30363D;
     border-radius: 6px;
     padding: 6px 10px;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.15s;
     z-index: 1000;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-family: 'Oswald', sans-serif;
-    color: #ffffff;
+    color: #C9D1D9;
     white-space: nowrap;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .country {
-    stroke: #272932;
+    stroke: #0D1117;
     stroke-width: 0.2px;
     transition: opacity 0.2s;
     cursor: pointer;
@@ -258,7 +262,7 @@ body {
 
 .country:hover {
     opacity: 0.8;
-    stroke: #ffffff;
+    stroke: #C9D1D9;
     stroke-width: 0.8px;
 }
 
@@ -275,7 +279,7 @@ body {
 #legend h3 {
     font-size: 0.85rem;
     font-weight: 500;
-    color: #bbb;
+    color: #8B949E;
 }
 
 .legend-scale {
@@ -294,8 +298,9 @@ body {
     display: flex;
     justify-content: space-between;
     width: 200px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 300;
+    color: #8B949E;
 }
 
 #stats {
@@ -309,18 +314,19 @@ body {
 #stats h3 {
     font-size: 0.85rem;
     font-weight: 500;
-    color: #bbb;
+    color: #8B949E;
     margin-bottom: 6px;
 }
 
 #stats p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 300;
     margin: 3px 0;
+    color: #8B949E;
 }
 
 .stat-number {
-    color: #ff6b6b;
+    color: #E6A817;
     font-weight: 600;
 }
 
@@ -338,26 +344,24 @@ body {
 }
 
 .region-popup-citation {
-  font-size: 0.65rem;
-  font-weight: 300;
-  color: #666;
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid #444;
-  line-height: 1.45;
-  font-style: italic;
+    font-size: 0.65rem;
+    font-weight: 300;
+    color: #555B66;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #30363D;
+    line-height: 1.45;
+    font-style: italic;
 }
 
 /* ── Country detail popup ── */
 .country-popup {
     position: absolute;
-    top: 20px;
-    left: 20px;
     width: 260px;
     max-height: calc(100% - 100px);
-    background-color: rgba(30, 31, 38, 0.95);
-    border: 2px solid #888;
-    border-radius: 10px;
+    background-color: rgba(22, 27, 34, 0.97);
+    border: 1.5px solid #30363D;
+    border-radius: 8px;
     padding: 16px 18px 14px;
     z-index: 500;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
@@ -375,13 +379,21 @@ body {
     visibility: visible;
 }
 
+/* Right-slot popup slides in from the right */
+.country-popup.right-slot {
+    transform: translateX(20px);
+}
+.country-popup.right-slot.visible {
+    transform: translateX(0);
+}
+
 .country-popup-close {
     position: absolute;
     top: 8px;
     right: 12px;
     background: none;
     border: none;
-    color: #aaa;
+    color: #8B949E;
     font-size: 1.4rem;
     cursor: pointer;
     line-height: 1;
@@ -390,26 +402,27 @@ body {
     font-family: 'Oswald', sans-serif;
 }
 
-.country-popup-close:hover { color: #fff; }
+.country-popup-close:hover { color: #E6EDF3; }
 
 .country-popup-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     margin-bottom: 6px;
     padding-bottom: 6px;
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid #30363D;
     padding-right: 24px;
+    color: #E6EDF3;
 }
 
 .country-popup-body {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 300;
-    color: #ccc;
+    color: #8B949E;
 }
 
 .country-popup-region {
     display: inline-block;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     font-weight: 500;
     letter-spacing: 0.5px;
     border: 1px solid;
@@ -425,23 +438,23 @@ body {
 
 .country-popup-stats p {
     margin: 2px 0;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
 }
 
 .cp-stat-num {
     font-weight: 600;
-    color: #ff6b6b;
+    color: #E6A817;
 }
 
 .cp-no-data {
-    color: #555;
-    font-size: 0.72rem;
+    color: #555B66;
+    font-size: 0.75rem;
     margin: 6px 0;
 }
 
 .cp-chart-label {
-    font-size: 0.6rem;
-    color: #666;
+    font-size: 0.65rem;
+    color: #555B66;
     margin-top: 10px;
     margin-bottom: 2px;
     text-transform: uppercase;
@@ -449,7 +462,7 @@ body {
 }
 
 .cp-attack-types {
-    font-size: 0.72rem;
-    color: #999;
+    font-size: 0.75rem;
+    color: #8B949E;
     line-height: 1.4;
 }

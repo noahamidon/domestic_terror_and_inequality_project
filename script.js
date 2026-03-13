@@ -113,7 +113,7 @@ async function init() {
     } catch (error) {
         console.error('Error loading data:', error);
         document.getElementById('map-container').innerHTML =
-            '<p style="padding: 20px; color: #ff6b6b;">Error loading data. Please check the console.</p>';
+            '<p style="padding: 20px; color: #D4821A;">Error loading data. Please check the console.</p>';
     }
 }
 
@@ -175,7 +175,7 @@ function createMap(world) {
             const name = d.properties.name;
             const mappedName = topoToGtdNameMap[name] || name;
             const stats = countryStats[mappedName];
-            return stats ? colorScale(stats.totalEvents) : '#3a3d4a';
+            return stats ? colorScale(stats.totalEvents) : '#1E2330';
         })
         .attr('data-region', d => {
             const mappedName = topoToGtdNameMap[d.properties.name] || d.properties.name;
@@ -253,13 +253,28 @@ function hideRegionPopup() {
     popup.classList.remove('visible');
 }
 
-// ── Country detail popups (multiple, dynamically created) ──
+// ── Country detail popups — two fixed slots: left (0) and right (1) ──
 function showCountryPopup(gtdName, topoName) {
-    // If already open, just bring it to the front
+    // If already open, bring to front and mark as recently used
     const existing = openCountryPopups.find(p => p.gtdName === gtdName);
     if (existing) {
         existing.el.style.zIndex = ++popupZCounter;
+        existing.openedAt = Date.now();
         return;
+    }
+
+    // Determine which slot to use
+    let slotIdx;
+    if (openCountryPopups.length < 2) {
+        // Use the first free slot
+        const used = new Set(openCountryPopups.map(p => p.slotIdx));
+        slotIdx = [0, 1].find(i => !used.has(i));
+    } else {
+        // Replace the least recently opened
+        const oldest = openCountryPopups.reduce((a, b) => a.openedAt < b.openedAt ? a : b);
+        slotIdx = oldest.slotIdx;
+        oldest.el.remove();
+        openCountryPopups = openCountryPopups.filter(p => p !== oldest);
     }
 
     const stats       = countryStats[gtdName];
@@ -269,16 +284,18 @@ function showCountryPopup(gtdName, topoName) {
     const displayName = (stats && stats.name) || gtdName || topoName;
     const uid         = 'cp' + Date.now();
 
-    // Cascade position based on number of currently open popups (6-slot cycle)
-    const slot = openCountryPopups.length % 6;
-    const offsetPx = slot * 22;
-
     const popup = document.createElement('div');
     popup.className = 'country-popup';
-    popup.style.top         = (20 + offsetPx) + 'px';
-    popup.style.left        = (20 + offsetPx) + 'px';
-    popup.style.zIndex      = ++popupZCounter;
+    popup.style.top    = '20px';
+    popup.style.zIndex = ++popupZCounter;
     popup.style.borderColor = color;
+
+    if (slotIdx === 0) {
+        popup.style.left = '20px';
+    } else {
+        popup.style.right = '20px';
+        popup.classList.add('right-slot');
+    }
 
     const hasTimeSeries = countryData.length >= 2;
     const hasGini = hasTimeSeries && countryData.some(d => +d.gini > 0);
@@ -313,7 +330,7 @@ function showCountryPopup(gtdName, topoName) {
         <div class="country-popup-body">${body}</div>`;
 
     document.querySelector('.map-section').appendChild(popup);
-    openCountryPopups.push({ gtdName, el: popup });
+    openCountryPopups.push({ gtdName, el: popup, slotIdx, openedAt: Date.now() });
 
     // Force reflow so the initial CSS state is painted before the transition
     popup.offsetHeight;
@@ -325,7 +342,7 @@ function showCountryPopup(gtdName, topoName) {
         renderSparkline(`${uid}-events`, sorted, 'iyear', 'tot_events', color);
         if (hasGini) {
             const giniData = sorted.filter(d => +d.gini > 0);
-            if (giniData.length >= 2) renderSparkline(`${uid}-gini`, giniData, 'iyear', 'gini', '#9ca3af');
+            if (giniData.length >= 2) renderSparkline(`${uid}-gini`, giniData, 'iyear', 'gini', '#555B66');
         }
     }
 
@@ -387,7 +404,7 @@ function renderSparkline(containerId, data, xKey, yKey, color) {
 
     const fmtY = v => yMax >= 1000 ? (v / 1000).toFixed(1) + 'k' : (+v).toFixed(yKey === 'gini' ? 1 : 0);
     const labelStyle = sel => sel
-        .attr('fill', '#555')
+        .attr('fill', '#555B66')
         .attr('font-size', '8px')
         .attr('font-family', 'Oswald, sans-serif');
 
@@ -585,14 +602,14 @@ function createScatterplot() {
         .attr('width', 70)
         .attr('height', 24)
         .attr('rx', 4)
-        .attr('fill', '#ffffff')
+        .attr('fill', '#C9D1D9')
         .attr('class', 'toggle-rect');
 
     eventsToggle.append('text')
         .attr('x', 35)
         .attr('y', 16)
         .attr('text-anchor', 'middle')
-        .attr('fill', '#1e1f26')
+        .attr('fill', '#0D1117')
         .attr('font-size', '0.75rem')
         .attr('font-weight', '600')
         .text('Events');
@@ -607,14 +624,14 @@ function createScatterplot() {
         .attr('width', 70)
         .attr('height', 24)
         .attr('rx', 4)
-        .attr('fill', '#555')
+        .attr('fill', '#21262D')
         .attr('class', 'toggle-rect');
 
     deathsToggle.append('text')
         .attr('x', 35)
         .attr('y', 16)
         .attr('text-anchor', 'middle')
-        .attr('fill', '#ffffff')
+        .attr('fill', '#555B66')
         .attr('font-size', '0.75rem')
         .attr('font-weight', '600')
         .text('Deaths');
@@ -661,14 +678,14 @@ function createScatterplot() {
             .attr('transform', `translate(0,${innerHeight})`)
             .call(d3.axisBottom(xScale))
             .selectAll('text, line, path')
-            .attr('stroke', '#ffffff')
-            .attr('fill', '#ffffff');
+            .attr('stroke', '#8B949E')
+            .attr('fill', '#8B949E');
 
         // X axis label
         g.append('text')
             .attr('x', innerWidth / 2)
             .attr('y', innerHeight + 35)
-            .attr('fill', '#ffffff')
+            .attr('fill', '#8B949E')
             .attr('text-anchor', 'middle')
             .attr('font-size', '0.85rem')
             .text('← Lower Inequality    Gini Coefficient    Higher Inequality →');
@@ -682,7 +699,7 @@ function createScatterplot() {
             .attr('transform', 'rotate(-90)')
             .attr('x', -innerHeight / 2)
             .attr('y', -45)
-            .attr('fill', '#d0d0d0')
+            .attr('fill', '#8B949E')
             .attr('text-anchor', 'middle')
             .attr('font-size', '0.85rem');
 
@@ -750,7 +767,7 @@ function createScatterplot() {
                     mapG.selectAll('.country')
                         .transition().duration(600)
                         .attr('opacity', 1)
-                        .attr('stroke', '#272932')
+                        .attr('stroke', '#0D1117')
                         .attr('stroke-width', 0.2);
                 }
                 // Hide popup
@@ -779,7 +796,7 @@ function createScatterplot() {
                     mapG.selectAll('.country')
                         .transition().duration(600)
                         .attr('opacity', 0.15)
-                        .attr('stroke', '#272932')
+                        .attr('stroke', '#0D1117')
                         .attr('stroke-width', 0.2);
                     mapG.selectAll(`.country[data-region="${focusedRegion}"]`)
                         .transition().duration(600)
@@ -818,21 +835,21 @@ function createScatterplot() {
             yAxisGroup.selectAll('*').remove();
             yAxisGroup.call(d3.axisLeft(yScale).ticks(5, '~s'))
                 .selectAll('text, line, path')
-                .attr('stroke', '#d0d0d0')
-                .attr('fill', '#d0d0d0');
+                .attr('stroke', '#8B949E')
+                .attr('fill', '#8B949E');
 
             // Update Y axis label
             yAxisLabel.text(labelText);
 
             // Update toggle button styles (radio behavior)
             eventsToggle.select('.toggle-rect')
-                .attr('fill', isEvents ? '#ffffff' : '#555');
+                .attr('fill', isEvents ? '#C9D1D9' : '#21262D');
             eventsToggle.select('text')
-                .attr('fill', isEvents ? '#1e1f26' : '#ffffff');
+                .attr('fill', isEvents ? '#0D1117' : '#555B66');
             deathsToggle.select('.toggle-rect')
-                .attr('fill', isEvents ? '#555' : '#ffffff');
+                .attr('fill', isEvents ? '#21262D' : '#C9D1D9');
             deathsToggle.select('text')
-                .attr('fill', isEvents ? '#ffffff' : '#1e1f26');
+                .attr('fill', isEvents ? '#555B66' : '#0D1117');
 
             // Clear previous plot elements
             plotGroup.selectAll('*').remove();
@@ -873,7 +890,7 @@ function createScatterplot() {
                         const label = isEvents ? 'events' : 'deaths';
                         scatterTooltip
                             .style('border-color', color)
-                            .html(`<span style="color:${color}; font-weight:600;">${d.country_txt}</span> <span style="color:#666; font-size:0.65rem;">${d.iyear}</span><br><span style="color:#aaa; font-size:0.7rem;">Gini ${(+d.gini).toFixed(1)} &nbsp;·&nbsp; ${val.toLocaleString()} ${label}</span>`)
+                            .html(`<span style="color:${color}; font-weight:600;">${d.country_txt}</span> <span style="color:#555B66; font-size:0.65rem;">${d.iyear}</span><br><span style="color:#8B949E; font-size:0.7rem;">Gini ${(+d.gini).toFixed(1)} &nbsp;·&nbsp; ${val.toLocaleString()} ${label}</span>`)
                             .style('opacity', 1);
                     })
                     .on('mousemove', function(event) {
@@ -973,7 +990,7 @@ function createScatterplot() {
                 .datum(globalSmooth)
                 .attr('class', 'global-line')
                 .attr('fill', 'none')
-                .attr('stroke', '#d0d0d0')
+                .attr('stroke', '#555B66')
                 .attr('stroke-width', 4)
                 .attr('stroke-dasharray', '8,5')
                 .attr('opacity', 0.9)
@@ -1003,8 +1020,8 @@ function createScatterplot() {
                     }
 
                     scatterTooltip
-                        .style('border-color', '#d0d0d0')
-                        .html('<span style="color:#d0d0d0; font-weight:600;">Global (All Regions)</span>')
+                        .style('border-color', '#555B66')
+                        .html('<span style="color:#555B66; font-weight:600;">Global (All Regions)</span>')
                         .style('opacity', 1);
                 })
                 .on('mousemove', function(event) {
@@ -1041,7 +1058,7 @@ function createScatterplot() {
 
             allEntries.forEach((entry, i) => {
                 const isGlobal = entry === 'Global';
-                const color = isGlobal ? '#d0d0d0' : (regionColors[entry] || '#888');
+                const color = isGlobal ? '#555B66' : (regionColors[entry] || '#8B949E');
 
                 const row = legendG.append('g')
                     .attr('transform', 'translate(0,' + (i * 14) + ')')
@@ -1077,7 +1094,7 @@ function createScatterplot() {
                     .attr('x', 20)
                     .attr('y', 9)
                     .attr('fill', color)
-                    .attr('font-size', '0.6rem')
+                    .attr('font-size', '0.65rem')
                     .attr('font-weight', '400')
                     .text(isGlobal ? 'Global' : entry);
             });
